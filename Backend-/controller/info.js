@@ -1,18 +1,18 @@
-const Info = require("../model/info");
+import Info from "../model/info.js"; // Import using ES modules
 
-async function putInfo(req, res) {
+export async function putInfo(req, res) {
   const { city_name, temperature, weather_condition } = req.body;
-  if (!city_name)
-    return res.status(400).json({ error: "city name is required" });
+  
+  if (!city_name) {
+    return res.status(400).json({ error: "City name is required" });
+  }
 
   const weatherData = new Info({
     city_name,
     temperature,
     weather_condition,
   });
+
   await weatherData.save();
   res.json({ message: "Weather data saved successfully" });
 }
-module.exports = {
-  putInfo,
-};

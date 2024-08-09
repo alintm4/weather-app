@@ -1,4 +1,4 @@
-const mongoose=require("mongoose")
+import mongoose from 'mongoose'
 
 const infoSchema=new mongoose.Schema(
     {
@@ -19,4 +19,4 @@ const infoSchema=new mongoose.Schema(
 )
 
 const Info=mongoose.model("Info",infoSchema)
-module.exports=Info;
+export default Info;

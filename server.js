@@ -1,10 +1,11 @@
-const mongoose= require("mongoose")
-const express= require("express")
-const route=require("./router/routes")
+import { connect } from 'mongoose';
+import express from 'express';
+
+import route from './Backend-/router/routes.js';
 
 const app=express()
 
-mongoose.connect("mongodb://127.0.0.1:27017/weather")
+connect("mongodb://127.0.0.1:27017/weather")
 .then(()=> console.log("mongo db connected"))
 .catch((err) => console.error("Mongodb error:", err));
 

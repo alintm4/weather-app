@@ -1,9 +1,9 @@
-const express=require("express")
+import express from 'express';
+import { putInfo } from '../controller/info.js';
 
-const { putInfo } = require("../controller/info")
-const route=express.Router()
+const router=express.Router()
 
 
-route.post("/",putInfo)
+router.post("/",putInfo)
 
-module.exports=route
+export default router;
