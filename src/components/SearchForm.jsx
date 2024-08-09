@@ -36,15 +36,15 @@ function SearchForm() {
     try {
       const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apikey}`);
       const data = await response.json();
-      // console.log(data);
-      // setWeatherData(data); //debugging
-      // setLocation(""); 
+      console.log(data);
+      setWeatherData(data); 
+      setLocation(""); 
       
-      console.log("Sending data to backend:", {
-        city_name: data.name,
-        temperature: (data.main.temp - 273.15).toFixed(2),
-        weather_condition: data.weather[0].description,
-      });
+      // console.log("Sending data to backend:", {
+      //   city_name: data.name,
+      //   temperature: (data.main.temp - 273.15).toFixed(2),
+      //   weather_condition: data.weather[0].description,
+      // });
       const backend = await fetch('http://localhost:5001/api', {
         method: 'POST',
         headers: {
@@ -91,15 +91,13 @@ function SearchForm() {
           </button>
         </form>
 
-        {weatherData ? (
-  <div className="mt-4 text-white">
-    <h2>Weather in {weatherData.name}:</h2>
-    <p>Temperature: {Math.round(weatherData.main.temp - 273.15)}°C</p>
-    <p>Weather: {weatherData.weather[0].description}</p>
-  </div>
-) : (
-  <p className="text-white">Loading weather data...</p>
-)}
+        {weatherData && (
+          <div className="mt-4 text-white">
+            <h2>Weather in {weatherData.name}:</h2>
+            <p>Temperature: {Math.round(weatherData.main.temp - 273.15)}°C</p>
+            <p>Weather: {weatherData.weather[0].description}</p>
+          </div>
+        )}
       </div>
     </div>
   );
