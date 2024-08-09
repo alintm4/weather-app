@@ -36,10 +36,15 @@ function SearchForm() {
     try {
       const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apikey}`);
       const data = await response.json();
-      console.log(data);
-      setWeatherData(data);
-      setLocation(""); 
+      // console.log(data);
+      // setWeatherData(data); //debugging
+      // setLocation(""); 
       
+      console.log("Sending data to backend:", {
+        city_name: data.name,
+        temperature: (data.main.temp - 273.15).toFixed(2),
+        weather_condition: data.weather[0].description,
+      });
       const backend = await fetch('http://localhost:5001/api', {
         method: 'POST',
         headers: {
@@ -47,12 +52,13 @@ function SearchForm() {
         },
         body: JSON.stringify({
           city_name: data.name,
-          temperature: (data.main.temp - 273.15).toFixed(2), 
+          temperature: (data.main.temp - 273.15).toFixed(2),
+          weather_condition: data.weather[0].description,
         })
       });
   
       if (!backend.ok) {
-        console.error("Error in saving weather data :", backend.statusText);
+        console.error("Error in saving weather data :");
       } else {
         console.log("Weather data saved successfully");
       }
@@ -67,7 +73,7 @@ function SearchForm() {
     <div className="h-screen bg-stone-500 flex justify-center">
       <div className="w-auto bg-purple-400 p-6 rounded-lg shadow-md mb-auto mt-4">
         <p className="text-white text-xl mb-4">Weather App</p>
-        <form method="POST" className="flex flex-col gap-4" onSubmit={weather}>
+        <form method="POST"className="flex flex-col gap-4" onSubmit={weather}>
           <span className="text-white">Enter Your Location:</span>
           <input
             type="text"
@@ -85,13 +91,15 @@ function SearchForm() {
           </button>
         </form>
 
-        {weatherData && (
-          <div className="mt-4 text-white">
-            <h2>Weather in {weatherData.name}:</h2>
-            <p>Temperature: {Math.round(weatherData.main.temp - 273.15)}°C</p>
-            <p>Weather: {weatherData.weather[0].description}</p>
-          </div>
-        )}
+        {weatherData ? (
+  <div className="mt-4 text-white">
+    <h2>Weather in {weatherData.name}:</h2>
+    <p>Temperature: {Math.round(weatherData.main.temp - 273.15)}°C</p>
+    <p>Weather: {weatherData.weather[0].description}</p>
+  </div>
+) : (
+  <p className="text-white">Loading weather data...</p>
+)}
       </div>
     </div>
   );

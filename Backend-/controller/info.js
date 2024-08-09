@@ -1,6 +1,8 @@
 import Info from "../model/info.js"; // Import using ES modules
 
 export async function putInfo(req, res) {
+
+  console.log(req.body)
   const { city_name, temperature, weather_condition } = req.body;
   
   if (!city_name) {
