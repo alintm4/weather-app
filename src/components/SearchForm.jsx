@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+ 
 
-const apikey = "52da8421a9fab4e182d053a96925f398";
+const MY_WEATHER_KEY = import.meta.env.VITE_WEATHER_KEY;
 
 function SearchForm() {
   const [location, setLocation] = useState("");
@@ -10,7 +11,7 @@ function SearchForm() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
         const { latitude, longitude } = position.coords;
-        const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apikey}`;
+        const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${MY_WEATHER_KEY}`;
 
         try {
           const response = await fetch(url);
@@ -34,7 +35,7 @@ function SearchForm() {
     if (!location) return;
 
     try {
-      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apikey}`);
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${MY_WEATHER_KEY}`);
       const data = await response.json();
       console.log(data);
       setWeatherData(data); 
