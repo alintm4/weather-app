@@ -4,10 +4,14 @@ import cors from 'cors';
 import route from './Backend-/router/routes.js';
 
 const app=express()
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 app.use(cors());
+const mongoUrl = process.env.MONGO_URL;
 
-connect("mongodb://127.0.0.1:27017/weather")
+connect(mongoUrl)
 .then(()=> console.log("mongo db connected"))
 .catch((err) => console.error("Mongodb error:", err));
 

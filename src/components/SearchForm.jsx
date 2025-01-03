@@ -32,7 +32,7 @@ function SearchForm() {
   async function weather(event) {
     event.preventDefault();
     
-    if (!location) return;
+    if (!location) return ;
 
     try {
       const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${MY_WEATHER_KEY}`);
