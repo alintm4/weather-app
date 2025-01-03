@@ -32,11 +32,15 @@ function SearchForm() {
   async function weather(event) {
     event.preventDefault();
     
-    if (!location) return ;
+    if (!location) return alert("Please enter a location.");
 
     try {
       const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${MY_WEATHER_KEY}`);
       const data = await response.json();
+      if (data.cod !== 200) {
+        alert("Invalid location. Please try again.");
+        return;
+      }
       console.log(data);
       setWeatherData(data); 
       setLocation(""); 
