@@ -46,7 +46,7 @@ function SearchForm() {
       //   temperature: (data.main.temp - 273.15).toFixed(2),
       //   weather_condition: data.weather[0].description,
       // });
-      const backend = await fetch('http://localhost:5001/api', {
+      const backend = await fetch('https://weather-app-0k57.onrender.com/api', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
