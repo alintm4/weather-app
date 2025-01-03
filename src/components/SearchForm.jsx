@@ -75,32 +75,34 @@ function SearchForm() {
   }
 
   return (
-    <div className="h-screen bg-stone-500 flex justify-center">
-      <div className="w-auto bg-purple-400 p-6 rounded-lg shadow-md mb-auto mt-4">
-        <p className="text-white text-xl mb-4">Weather App</p>
-        <form method="POST"className="flex flex-col gap-4" onSubmit={weather}>
-          <span className="text-white">Enter Your Location:</span>
+    <div className="h-screen bg-gradient-to-r from-blue-500 to-indigo-600 flex justify-center items-center">
+      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+        <h1 className="text-2xl font-bold text-gray-800 mb-4 text-center">🌤 Weather App</h1>
+        <form onSubmit={weather} className="flex flex-col gap-4">
+          <label htmlFor="location" className="text-gray-600">
+            Enter Your Location:
+          </label>
           <input
             type="text"
+            id="location"
             value={location}
             onChange={handleInputChange}
-            placeholder="Enter your location"
-            className="p-2 rounded-md border border-gray-300"
+            placeholder="Enter city name"
+            className="p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
-
           <button
             type="submit"
-            className="bg-orange-200 p-2 rounded-sm hover:bg-orange-300 transition"
+            className="bg-blue-500 text-white py-2 rounded-md shadow-md hover:bg-blue-600 transition"
           >
             Get Info
           </button>
         </form>
 
         {weatherData && (
-          <div className="mt-4 text-white">
-            <h2>Weather in {weatherData.name}:</h2>
-            <p>Temperature: {Math.round(weatherData.main.temp - 273.15)}°C</p>
-            <p>Weather: {weatherData.weather[0].description}</p>
+          <div className="mt-6 bg-gray-100 p-4 rounded-lg shadow-md">
+            <h2 className="text-xl font-bold text-gray-800">Weather in {weatherData.name}:</h2>
+            <p className="text-gray-600">🌡 Temperature: {Math.round(weatherData.main.temp - 273.15)}°C</p>
+            <p className="text-gray-600">☁️ Weather: {weatherData.weather[0].description}</p>
           </div>
         )}
       </div>
